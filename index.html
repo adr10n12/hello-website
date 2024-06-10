@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .button {
+            background-color: red;
+            color: black;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .rainy-cloud {
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            box-shadow: -40px 40px 0 -20px #f0f0f0, 40px 40px 0 -20px #f0f0f0;
+            z-index: 1000;
+        }
+        .rainy-cloud::before, .rainy-cloud::after {
+            content: '';
+            position: absolute;
+            background: #f0f0f0;
+            border-radius: 50%;
+        }
+        .rainy-cloud::before {
+            width: 120px;
+            height: 120px;
+            top: -60px;
+            left: -20px;
+        }
+        .rainy-cloud::after {
+            width: 100px;
+            height: 100px;
+            top: -50px;
+            right: -20px;
+        }
+        .rain {
+            position: absolute;
+            top: 100px;
+            width: 10px;
+            height: 50px;
+            background: #00f;
+            animation: rain 0.5s infinite;
+        }
+        @keyframes rain {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(50px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="images/your-gif.gif" alt="Gif in the middle">
+    <h1>Will you go out with me?</h1>
+    <button class="button" onclick="handleYes()">Yes</button>
+    <button class="button" onclick="handleNo()">No</button>
+
+    <script>
+        function handleYes() {
+            window.location.href = "yes.html";
+        }
+
+        function handleNo() {
+            // Create the image element
+            let img = document.createElement('img');
+            img.src = 'images/your-image.jpg';
+            img.style.position = 'fixed';
+            img.style.top = '50%';
+            img.style.left = '50%';
+            img.style.transform = 'translate(-50%, -50%)';
+            img.style.zIndex = '1000';
+            document.body.appendChild(img);
+
+            // Create multiple rainy cloud elements
+            for (let i = 0; i < 5; i++) {
+                let cloud = document.createElement('div');
+                cloud.className = 'rainy-cloud';
+                cloud.style.top = `${Math.random() * 100}vh`;
+                cloud.style.left = `${Math.random() * 100}vw`;
+                document.body.appendChild(cloud);
+
+                // Create rain drops
+                for (let j = 0; j < 5; j++) {
+                    let rainDrop = document.createElement('div');
+                    rainDrop.className = 'rain';
+                    rainDrop.style.left = `${50 + j * 20 - 50}px`; // Adjusting the positions
+                    cloud.appendChild(rainDrop);
+                }
+
+                // Remove the cloud element after 10 seconds
+                setTimeout(() => {
+                    document.body.removeChild(cloud);
+                }, 10000);
+            }
+
+            // Remove the image after 10 seconds
+            setTimeout(() => {
+                document.body.removeChild(img);
+            }, 10000);
+        }
+    </script>
+</body>
+</html>

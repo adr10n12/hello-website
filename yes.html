@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yes Page</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        #confetti {
+            position: fixed;
+            top: -50%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        #fireworks-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .text {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            z-index: 10001; /* Make sure it's above the confetti and fireworks */
+            color: black;
+            font-size: 2em;
+        }
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 80%;
+            max-height: 50%;
+            margin-top: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text">I'll see you later</h1>
+        <canvas id="confetti"></canvas>
+        <canvas id="fireworks-canvas"></canvas>
+        <img src="images/your-picture.jpg" alt="Picture in the middle">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fireworks-js@1.0.2/dist/index.min.js"></script>
+    <script>
+        // Confetti script
+        var confettiSettings = {
+            target: 'confetti',
+            max: 500,
+            size: 1,
+            animate: true,
+            props: ['circle', 'square', 'triangle', 'line'],
+            colors: [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]],
+            clock: 25,
+            rotate: true,
+            width: window.innerWidth,
+            height: window.innerHeight,
+            start_from_edge: true,
+            respawn: true
+        };
+        var confetti = new ConfettiGenerator(confettiSettings);
+        confetti.render();
+
+        // Fireworks script
+        const fireworksContainer = document.getElementById('fireworks-canvas');
+        const fireworks = new Fireworks.default(fireworksContainer, {
+            autoresize: true,
+            opacity: 0.9,
+            acceleration: 1.05,
+            friction: 0.97,
+            gravity: 1.5,
+            particles: 100,
+            trace: 3,
+            traceSpeed: 10,
+            explosion: 5,
+            intensity: 30,
+            flickering: 50,
+            lineStyle: 'round',
+            hue: {
+                min: 0,
+                max: 360
+            },
+            delay: {
+                min: 15,
+                max: 30
+            },
+            rocketsPoint: {
+                min: 50,
+                max: 50
+            },
+            lineWidth: {
+                explosion: {
+                    min: 1,
+                    max: 3
+                },
+                trace: {
+                    min: 1,
+                    max: 2
+                }
+            },
+            brightness: {
+                min: 50,
+                max: 80
+            },
+            decay: {
+                min: 0.015,
+                max: 0.03
+            },
+            boundaries: {
+                width: fireworksContainer.clientWidth,
+                height: fireworksContainer.clientHeight
+            },
+            sound: {
+                enable: true,
+                files: [
+                    'https://fireworks.js.org/sounds/explosion0.mp3',
+                    'https://fireworks.js.org/sounds/explosion1.mp3',
+                    'https://fireworks.js.org/sounds/explosion2.mp3'
+                ],
+                volume: {
+                    min: 4,
+                    max: 8
+                }
+            }
+        });
+
+        fireworks.start();
+    </script>
+</body>
+</html>
